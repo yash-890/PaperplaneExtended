@@ -54,12 +54,12 @@ async def mention_afk(mention):
     """ This function takes care of notifying the people who mention you that you are AFK."""
     global COUNT_MSG
     global USERS
-    if afk_db:
-        ISAFK = gvarstatus("AFK_STATUS")
-        AFKREASON = gvarstatus("AFK_REASON")
-    else:
+    if not afk_db:
         global ISAFK
         global AFFKREASON
+    else:
+        ISAFK = gvarstatus("AFK_STATUS")
+        AFKREASON = gvarstatus("AFK_REASON")
     if mention.message.mentioned and not (await mention.get_sender()).bot:
         if ISAFK:
             if mention.sender_id not in USERS:
@@ -87,12 +87,12 @@ async def mention_afk(mention):
 @register(incoming=True, disable_errors=True)
 async def afk_on_pm(sender):
     """ Function which informs people that you are AFK in PM """
-    if afk_db:
-        ISAFK = gvarstatus("AFK_STATUS")
-        AFKREASON = gvarstatus("AFK_REASON")
-    else:
+    if not afk_db:
         global ISAFK
         global AFFKREASON
+    else:
+        ISAFK = gvarstatus("AFK_STATUS")
+        AFKREASON = gvarstatus("AFK_REASON")
     global USERS
     global COUNT_MSG
     if sender.is_private and sender.sender_id != 777000 and not (
@@ -133,12 +133,12 @@ async def set_afk(afk_e):
     """ For .afk command, allows you to inform people that you are afk when they message you """
     message = afk_e.text
     string = afk_e.pattern_match.group(1)
-    if afk_db:
-        ISAFK = gvarstatus("AFK_STATUS")
-        AFKREASON = gvarstatus("AFK_REASON")
-    else:
+    if not afk_db:
         global ISAFK
         global AFFKREASON
+    else:
+        ISAFK = gvarstatus("AFK_STATUS")
+        AFKREASON = gvarstatus("AFK_REASON")
     if string:
         AFKREASON = string
         await afk_e.edit(f"Going AFK!\
@@ -159,12 +159,12 @@ async def type_afk_is_not_true(notafk):
     """ This sets your status as not afk automatically when you write something while being afk """
     global COUNT_MSG
     global USERS
-    if afk_db:
-        ISAFK = gvarstatus("AFK_STATUS")
-        AFKREASON = gvarstatus("AFK_REASON")
-    else:
+    if not afk_db:
         global ISAFK
         global AFFKREASON
+    else:
+        ISAFK = gvarstatus("AFK_STATUS")
+        AFKREASON = gvarstatus("AFK_REASON")
     if ISAFK:
         if afk_db:
             delgvar("AFK_STATUS")
