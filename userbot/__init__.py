@@ -150,10 +150,10 @@ for binary, path in binaries.items():
 # 'bot' variable
 if STRING_SESSION:
     # pylint: disable=invalid-name
-    bot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH, connection_retries=None)
+    bot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH, timeout=5, retry_delay=5)
 else:
     # pylint: disable=invalid-name
-    bot = TelegramClient("userbot", API_KEY, API_HASH, connection_retries=None)
+    bot = TelegramClient("userbot", API_KEY, API_HASH, timeout=5, retry_delay=5)
 
 
 async def check_botlog_chatid():
